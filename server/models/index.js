@@ -1,4 +1,19 @@
 var db = require('../db');
+var Promise = require('bluebird');
+
+
+var queryFunc = (queryString) => {
+  return new Promise((resolve, reject)=> {
+    db.con.query(queryString, (err, result)=> {
+      if (err) {
+        reject(result);
+      } else {
+        resolve(result);
+      }
+    });
+  });
+};
+
 
 module.exports = {
   messages: {

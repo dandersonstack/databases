@@ -14,3 +14,7 @@ exports.con = mysql.createConnection({
 });
 
 
+// var data =  { username: 'karel', text: 'asdfasdf', roomname: 'lobby' };
+// var theMessages;
+
+

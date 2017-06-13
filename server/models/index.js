@@ -2,16 +2,22 @@ var db = require('../db');
 
 module.exports = {
   messages: {
-    get: function () {
+    get: function (callback) {
       var sql = 'Select * from messages';
       db.con.query(sql, function (err, result) {
         if (err) { throw err; }
         console.log("Result from the get: " + result);
-        return result;
+        callback(result);
       }); 
     }, // a function which produces all the messages
     post: function (data) {
       console.log("POST data is:", data);
+      
+      // post the rooms data
+      module.exports.rooms.post(data, ()=>{
+        
+      });
+      
       
       
       
@@ -38,47 +44,56 @@ module.exports = {
       var sql = `Select id from rooms where name='${roomname}'`;
       db.con.query(sql, function (err, result) {
         if (err) { throw err; }
-        console.log(result[0]['id']);
+        callback(result[0]['id']);
       });
     },
     
-    get: function () {
+    get: function (callback) {
       var sqlRoom = 'Select * from rooms';
       db.con.query(sqlRoom, function (err, result) {
         if (err) { throw err; }
         console.log('Result from the room get: ' + JSON.stringify(result));
+        callback(result);
       }); 
     },
-    post: function (data) {
+    post: function (data, callback) {
       var sqlRoom = `INSERT INTO rooms SET name='${data.roomname}' `;
       db.con.query(sqlRoom, function(err, result) {
         if (err) { 
           console.log('We are already added this username');
-        } else {
-          console.log('The UserName Post was successful');
         }
+        console.log('The UserName Post was successful');
+        callback();
       });
     }
   },
 
   users: {
     // Ditto as above.
-    get: function () {
-      var sql = 'Select * from users';
+    _getUserId: function(userName, callback) {
+      var sql = `Select id from users where name='${username}'`;
       db.con.query(sql, function (err, result) {
         if (err) { throw err; }
-        console.log('Result from the user get: ' + result);
-        return result;
+        callback(result[0]['id']);
+      });
+    },
+    
+    get: function (callback) {
+      var sqlUser = 'Select * from users';
+      db.con.query(sqlUser, function (err, result) {
+        if (err) { throw err; }
+        console.log('Result from the room get: ' + JSON.stringify(result));
+        callback(result);
       }); 
     },
-    post: function (data) {
-      var sqlUser = `INSERT INTO users SET name='${data.username}' `;
+    post: function (data, callback) {
+      var sqlUser = `INSERT INTO users SET name='${data.roomname}' `;
       db.con.query(sqlUser, function(err, result) {
         if (err) { 
           console.log('We are already added this username');
-        } else {
-          console.log('The UserName Post was successful');
         }
+        console.log('The UserName Post was successful');
+        callback();
       });
     }
   }

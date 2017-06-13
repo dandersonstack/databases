@@ -5,7 +5,7 @@ module.exports = {
     get: function (req, res) {
       console.log("It got to the get messages in the controller: ", req.url);
       res.statusCode = 200;
-      console.log(models.messages.get());
+      console.log(models.messages.get(function(item) { console.log(item); }));
       res.end();
     }, // a function which handles a get request for all messages
     post: function (req, res) {

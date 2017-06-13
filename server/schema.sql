@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS `users`;
     
 CREATE TABLE `users` (
   `id` INTEGER AUTO_INCREMENT,
-  `name` CHAR(20) UNIQUE,
+  `userName` CHAR(20) UNIQUE,
   PRIMARY KEY (`id`)
 );
 
@@ -48,7 +48,7 @@ DROP TABLE IF EXISTS `rooms`;
     
 CREATE TABLE `rooms` (
   `id` INTEGER AUTO_INCREMENT,
-  `name` CHAR(20) UNIQUE,
+  `roomName` CHAR(20) UNIQUE,
   PRIMARY KEY (`id`)
 );
 

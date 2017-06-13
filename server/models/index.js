@@ -21,8 +21,7 @@ var queryFunc = (queryString) => {
 module.exports = {
   messages: {
     get: function () {
-      console.log("We are getting to the model get");
-      var sql = `Select users.userName, messages.text, rooms.roomName from messages inner join
+      var sql = `Select messages.id, users.userName, messages.text, rooms.roomName from messages inner join
                 users inner join rooms where users.id = messages.id_users 
                 and rooms.id = messages.id_rooms`;
       return queryFunc(sql);
@@ -31,36 +30,8 @@ module.exports = {
       console.log("POST data is:", data);
       
       // post the rooms data
-      var sqlMessage = `INSERT INTO message SET name='${data.text}'`;
-      module.exports.rooms.post(data, (err, result) => {
-        console.log("The result from post is:", result);
-        console.log("The Data should still be:", data);
-        console.log("The room name we are using is:", data.roomname);
-        
-        
-        
-        module.exports.rooms.get((err, roomResult) => {
-          
-          
-          console.log("error data:", err);
-          
-          console.log("Rooms Data:", JSON.stringify(roomResult));
-        });
-          
-          
-          
-          
-          
-        // module.exports.users.post(data, (err, userResult)=>{
-        //   console.log("Rooms Data:", JSON.stringify(roomResult));
-        //   console.log("User Data:", JSON.stringify(userResult));
-        //   //var sqlMessage = `INSERT INTO message SET name='${data.text}', room_id=${roomResult[0].id}, user_id=${userResult[0].id}`;
-        //   //queryFunc(sqlMessage, callback);
-        // });
-        // });
-      });
-      
-      
+      //get rooms Id and User Id
+      //we need create a new and a new user if they don't exist
       
       
       // insert username data to the user table
@@ -83,12 +54,7 @@ module.exports = {
   rooms: {
     get: function () {
       var sqlRoom = `Select * from rooms`;
-      queryFunc(sqlRoom).then((result)=>{
-        console.log(JSON.stringify(result));
-        return result;
-        //return queryFunc('Some insert function');
-      });
-      
+      return queryFunc(sqlRoom);     
     },
     post: function (data, callback) {
       var sqlRoom = `INSERT INTO rooms SET name='${data.roomname}' `;
@@ -97,9 +63,9 @@ module.exports = {
   },
 
   users: {  
-    get: function (callback) {
+    get: function () {
       var sqlUser = 'Select * from users';
-      queryFunc(sqlUser, callback); 
+      return queryFunc(sqlRoom);    
     },
     post: function (data, callback) {
       var sqlUser = `INSERT INTO users SET name='${data.roomname}' `;

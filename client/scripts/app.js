@@ -6,7 +6,7 @@ var app = {
   server: '/classes/messages',
   username: 'anonymous',
   roomname: 'lobby',
-  lastMessageId: 0,
+  Id: 0,
   friends: {},
   messages: [],
 
@@ -63,17 +63,16 @@ var app = {
       data: { order: '-createdAt' },
       contentType: 'application/json',
       success: function(data) {
+        // console.log("I am in the client:", data);
         // Don't bother if we have nothing to work with
         if (!data.results || !data.results.length) { return; }
 
         // Store messages for caching later
         app.messages = data.results;
-
         // Get the last message
         var mostRecentMessage = data.results[data.results.length - 1];
-
         // Only bother updating the DOM if we have a new message
-        if (mostRecentMessage.objectId !== app.lastMessageId) {
+        if (mostRecentMessage.id !== app.Id) {
           // Update the UI with the fetched rooms
           app.renderRoomList(data.results);
 
@@ -144,6 +143,7 @@ var app = {
   },
 
   renderMessage: function(message) {
+    console.log("I should be rendering");
     if (!message.roomname) {
       message.roomname = 'lobby';
     }

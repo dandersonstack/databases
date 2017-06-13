@@ -3,7 +3,7 @@ var app = {
 
   //TODO: The current 'handleUsernameClick' function just toggles the class 'friend'
   //to all messages sent by the user
-  server: 'http://127.0.0.1:3000/classes/messages',
+  server: '/classes/messages',
   username: 'anonymous',
   roomname: 'lobby',
   lastMessageId: 0,
@@ -42,11 +42,11 @@ var app = {
     $.ajax({
       url: app.server,
       type: 'POST',
-      // contentType: 'application/json',
       data: message,
       success: function (data) {
         // Clear messages input
         app.$message.val('');
+
         // Trigger a fetch to update the messages, pass true to animate
         app.fetch();
       },
@@ -61,23 +61,19 @@ var app = {
       url: app.server,
       type: 'GET',
       data: { order: '-createdAt' },
-      // contentType: 'text/string',
+      contentType: 'application/json',
       success: function(data) {
-        console.log('Successful fetched data');
         // Don't bother if we have nothing to work with
-        if (!data.results || !data.results.length) {
-          app.stopSpinner();
-          return; 
-        }
+        if (!data.results || !data.results.length) { return; }
 
         // Store messages for caching later
         app.messages = data.results;
 
         // Get the last message
         var mostRecentMessage = data.results[data.results.length - 1];
+
         // Only bother updating the DOM if we have a new message
-        if (mostRecentMessage.objectId !== app.lastMessageId || data.results.length === 1) {
-          
+        if (mostRecentMessage.objectId !== app.lastMessageId) {
           // Update the UI with the fetched rooms
           app.renderRoomList(data.results);
 

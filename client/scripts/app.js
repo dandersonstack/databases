@@ -26,17 +26,17 @@ var app = {
     app.$roomSelect.on('change', app.handleRoomChange);
 
     // Fetch previous messages
-    app.startSpinner();
-    app.fetch(false);
+    //app.startSpinner();
+    //app.fetch(false);
 
     // Poll for new messages
-    setInterval(function() {
-      app.fetch(true);
-    }, 3000);
+    // setInterval(function() {
+    //   app.fetch(true);
+    // }, 3000);
   },
 
   send: function(message) {
-    app.startSpinner();
+    //app.startSpinner();
 
     // POST the message to the server
     $.ajax({
@@ -48,7 +48,7 @@ var app = {
         app.$message.val('');
 
         // Trigger a fetch to update the messages, pass true to animate
-        app.fetch();
+        //app.fetch();
       },
       error: function (error) {
         console.error('chatterbox: Failed to send message', error);

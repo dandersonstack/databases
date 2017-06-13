@@ -8,7 +8,7 @@ USE chat;
 
 
 /*  Execute this file from the command line by typing:
- *    mysql -u root < server/schema.sql
+ *    mysql -u root < server/schema.sql;
  *  to create the database and the tables.*/
 
 
@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS `users`;
     
 CREATE TABLE `users` (
   `id` INTEGER AUTO_INCREMENT,
-  `name` CHAR(20) NULL,
+  `name` CHAR(20) UNIQUE,
   PRIMARY KEY (`id`)
 );
 
@@ -48,9 +48,11 @@ DROP TABLE IF EXISTS `rooms`;
     
 CREATE TABLE `rooms` (
   `id` INTEGER AUTO_INCREMENT,
-  `name` CHAR(20) NULL,
+  `name` CHAR(20) UNIQUE,
   PRIMARY KEY (`id`)
 );
+
+
 
 -- ---
 -- Foreign Keys 

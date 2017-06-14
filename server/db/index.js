@@ -1,5 +1,4 @@
 var mysql = require('mysql');
-var Promise = require('bluebird');
 
 
 // Create a database connection and export it from this file.
@@ -14,6 +13,9 @@ exports.con = mysql.createConnection({
   user: 'root',
   password: 'plantlife'
 });
+
+
+
 
 
 

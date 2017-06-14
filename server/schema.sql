@@ -10,6 +10,12 @@ USE chat;
 /*  Execute this file from the command line by typing:
  *    mysql -u root < server/schema.sql;
  *  to create the database and the tables.*/
+ -- insert into users set username="george"
+ -- insert into users set username="james"
+ -- insert into rooms set roomname="funRoom";
+ -- insert into rooms set roomname="crazyRoom";
+ -- insert into messages set text="a super cool message", id_users=1, id_rooms=1;
+ 
 
 
 -- ---
@@ -35,7 +41,7 @@ DROP TABLE IF EXISTS `users`;
     
 CREATE TABLE `users` (
   `id` INTEGER AUTO_INCREMENT,
-  `userName` CHAR(20) UNIQUE,
+  `username` CHAR(20) UNIQUE,
   PRIMARY KEY (`id`)
 );
 
@@ -48,7 +54,7 @@ DROP TABLE IF EXISTS `rooms`;
     
 CREATE TABLE `rooms` (
   `id` INTEGER AUTO_INCREMENT,
-  `roomName` CHAR(20) UNIQUE,
+  `roomname` CHAR(20) UNIQUE,
   PRIMARY KEY (`id`)
 );
 

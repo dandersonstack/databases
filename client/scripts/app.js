@@ -48,7 +48,7 @@ var app = {
         app.$message.val('');
 
         // Trigger a fetch to update the messages, pass true to animate
-        //app.fetch();
+        app.fetch(true);
       },
       error: function (error) {
         console.error('chatterbox: Failed to send message', error);
@@ -57,12 +57,14 @@ var app = {
   },
 
   fetch: function(animate) {
+    console.log("About to fetch the data");
     $.ajax({
       url: app.server,
       type: 'GET',
       data: { order: '-createdAt' },
       contentType: 'application/json',
       success: function(data) {
+        console.log(JSON.stringify(data));
         // console.log("I am in the client:", data);
         // Don't bother if we have nothing to work with
         if (!data.results || !data.results.length) { return; }
@@ -143,7 +145,6 @@ var app = {
   },
 
   renderMessage: function(message) {
-    console.log("I should be rendering");
     if (!message.roomname) {
       message.roomname = 'lobby';
     }
